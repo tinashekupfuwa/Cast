@@ -1,0 +1,54 @@
+Graphql rules.
+
+01|.Always start with a high level view of the subjects and their relationships before you deal  with specific fields.
+02|.Never expose implementation details in your API Design.
+03|.Design your API around your business domain.
+04|.it's eassier to add fields than to remove them.
+05|.Group closesly-related fields together into sub-objects.
+06|.Always check aa list if it should be paginated.
+07|.Always use Object references insteaad of ID Fields.
+08|.Choose field names based on what maakes sense, not based on the implementation.
+09|.Use Enums for fields that can only take a specific set of values.
+10|.Your API should provide business logic not just data.
+11|.Write separate mutations for separate logical actions on a resource.
+12|.For relationship mutations consider operating on multiple elements.
+13|.Prefix Mutation names w ith the object for Alphabetical grouping.
+14|.Structure mutation inputs to reduce duplication.
+15|.Mutations shpuld provide business level errors.
+
+
+ORM - Object Relational Mapper
+
+Setting up typescript
+
+1.npm init -y 
+2.npm i apollo-server graphql 
+3.npm install prisma typescript ts-node @types/node --save-dev
+4.npx tsc --init // initialize typescript
+4.npx prisma // invoke the Prisma CLI by prefixing it with npx
+5.npx prisma init --datasource-provider PostgreSQL // creates a prisma schema and creates the .env file in the root directory of the project, which is used for defining environment variables (such as your database connection)
+6.npm install apollo-server graphql  
+
+
+--------------------------------------------
+scripts
+
+"start:dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts" //this was working
+
+--------------------------------------------
+Setting up auth
+
+1.npm install validator @types/validator
+2.npm install bcryptjs @types/bcryptjs     
+3.npm install jsonwebtoken @types/jsonwebtoken
+--------------------------------------------
+Running Prisma
+
+1.npx prisma db push  // querying to the db using prisma
+2.npx prisma studio   // running a GUI to show the tables 
+
+
+
+---------------------------------------------
+
+Setting up environment variables

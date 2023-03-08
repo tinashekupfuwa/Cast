@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  firstname  String
+  lastname   String
+  username   String      @unique
+  gender     Gender
+  posts      Post[]
+  broadcasts Broadcast[]
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  title       String    @unique
+  description String
+  approve     Int?
+  disapprove  Int?
+  authorId    Int
+  author      User      @relation(fields: [authorId], references: [id])
+  broadcastId Int
+  broadcast   Broadcast @relation(fields: [broadcastId], references: [id])
+}
+
+model Broadcast {
+  id          Int    @id @default(autoincrement())
+  title       String @unique
+  description String
+  creatorId   Int
+  creator     User   @relation(fields: [creatorId], references: [id])
+  posts       Post[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
