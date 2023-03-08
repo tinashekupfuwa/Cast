@@ -19,6 +19,35 @@ interface BroadcastPayload {
 }
 
 export const broadcastResolvers = {
+	//Find broadcast
+	broadcastFind: async (
+		_: any,
+		{ broadcastTitle }: { broadcastTitle: string },
+		{ prisma }: Context
+	) => {
+		//find broadcast using title
+		const broadcast = await prisma.broadcast.findUnique({
+			where: {
+				title: broadcastTitle
+			}
+		});
+
+		if (!broadcast) {
+			return {
+				userErrors: [
+					{
+						message: "broadcast does not exist"
+					}
+				],
+				broadcast: null
+			};
+		}
+
+		return {
+			userErrors: [],
+			broadcast
+		};
+	},
 	broadcastCreate: async (
 		_: any,
 		{ broadcast }: broadcastArgs,
@@ -76,6 +105,7 @@ export const broadcastResolvers = {
 		}: { broadcastId: string; broadcast: broadcastArgs["broadcast"] },
 		{ prisma }: Context
 	): Promise<BroadcastPayload> => {
+		//Updating a broadcast
 		const { title, description } = broadcast;
 		if (!title && !description) {
 			return {
@@ -125,6 +155,7 @@ export const broadcastResolvers = {
 			})
 		};
 	},
+	//Broadcast Delete
 	broadcastDelete: async (
 		_: any,
 		{ broadcastId }: { broadcastId: string },

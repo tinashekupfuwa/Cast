@@ -8,13 +8,22 @@ export const typeDefs = gql`
 	}
 
 	type Mutation {
-		broadcastFind(broadcastId: ID!): BroadcastPayload!
+		#Broadcast
+		broadcastFind(broadcastTitle: String): BroadcastPayload!
 		broadcastCreate(broadcast: BroadcastInput): BroadcastPayload!
 		broadcastUpdate(
 			broadcastId: ID!
 			broadcast: BroadcastInput
 		): BroadcastPayload!
 		broadcastDelete(broadcastId: ID!): BroadcastPayload!
+		#Post
+		postCreate(
+			userId: ID!
+			post: PostInput!
+			broadcastId: String!
+		): PostPayload!
+		postUpdate(postId: ID!, post: PostInput!): PostPayload!
+		postDelete(postId: ID!): PostPayload!
 	}
 
 	type User {
@@ -61,6 +70,16 @@ export const typeDefs = gql`
 	}
 
 	input BroadcastInput {
+		title: String!
+		description: String!
+	}
+
+	type PostPayload {
+		userErrors: [userError]
+		post: Post
+	}
+
+	input PostInput {
 		title: String!
 		description: String!
 	}
