@@ -12,7 +12,9 @@ model User {
   firstname  String
   lastname   String
   username   String      @unique
-  gender     Gender
+  password   String      @unique
+  gender     String
+  email      String      @unique
   posts      Post[]
   broadcasts Broadcast[]
 }
@@ -36,9 +38,4 @@ model Broadcast {
   creatorId   Int
   creator     User   @relation(fields: [creatorId], references: [id])
   posts       Post[]
-}
-
-enum Gender {
-  MALE
-  FEMALE
 }

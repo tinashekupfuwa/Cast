@@ -24,6 +24,15 @@ export const typeDefs = gql`
 		): PostPayload!
 		postUpdate(postId: ID!, post: PostInput!): PostPayload!
 		postDelete(postId: ID!): PostPayload!
+		#User
+		signup(
+			firstname: String!
+			lastname: String!
+			username: String!
+			password: String!
+			gender: String!
+			email: String!
+		): AuthPayload!
 	}
 
 	type User {
@@ -31,7 +40,9 @@ export const typeDefs = gql`
 		firstname: String!
 		lastname: String!
 		username: String!
-		gender: Gender!
+		password: String!
+		gender: String!
+		email: String!
 		posts: [Post!]!
 		broadcasts: [Broadcast!]!
 	}
@@ -53,11 +64,6 @@ export const typeDefs = gql`
 		creator: User!
 		user: [User!]!
 		posts: [Post!]!
-	}
-
-	enum Gender {
-		MALE
-		FEMALE
 	}
 
 	type BroadcastPayload {
@@ -82,5 +88,10 @@ export const typeDefs = gql`
 	input PostInput {
 		title: String!
 		description: String!
+	}
+
+	type AuthPayload {
+		userErrors: [userError!]!
+		user: User
 	}
 `;
